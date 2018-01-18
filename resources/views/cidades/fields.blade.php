@@ -1,7 +1,8 @@
 <!-- Estado Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('estado_id', 'Estado Id:') !!}
-    {!! Form::number('estado_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('estado_id', 'Estado:') !!}
+    <!-- {!! Form::number('estado_id', null, ['class' => 'form-control']) !!} -->
+    {!! Form::select('estado_id', (isset($estados) ? $estados : null), ['class' => 'form-control', 'id'=>'estado_id']) !!}
 </div>
 
 <!-- Nome Field -->

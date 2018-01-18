@@ -11,6 +11,9 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 
+use App\Models\Cidade as Cidade;
+use Illuminate\Support\Facades\DB;
+
 class PacienteController extends AppBaseController
 {
     /** @var  PacienteRepository */
@@ -39,7 +42,7 @@ class PacienteController extends AppBaseController
      */
     public function create()
     {
-        return view('pacientes.create');
+        return view('pacientes.create')->with('cidades', Cidade::select([DB::raw('cidades.id as id'), 'cidades.ibge',DB::raw('CONCAT(cidades.nome," (", estados.sigla,")") as nome')])->join('estados', 'estados.id', '=', 'cidades.estado_id')->orderBy('cidades.nome')->get());
     }
 
     /**
@@ -97,7 +100,7 @@ class PacienteController extends AppBaseController
             return redirect(route('pacientes.index'));
         }
 
-        return view('pacientes.edit')->with('paciente', $paciente);
+        return view('pacientes.edit')->with('paciente', $paciente)->with('cidades', Cidade::select([DB::raw('cidades.id as id'), 'cidades.ibge',DB::raw('CONCAT(cidades.nome," (", estados.sigla,")") as nome')])->join('estados', 'estados.id', '=', 'cidades.estado_id')->orderBy('cidades.nome')->get());;
     }
 
     /**

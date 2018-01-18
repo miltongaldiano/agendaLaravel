@@ -11,6 +11,9 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 
+use App\Models\Medico;
+use App\Models\Paciente;
+
 class AgendaController extends AppBaseController
 {
     /** @var  AgendaRepository */
@@ -39,7 +42,16 @@ class AgendaController extends AppBaseController
      */
     public function create()
     {
-        return view('agendas.create');
+        $arr_m = [];
+        foreach (Medico::all() as $medico) {
+            $arr_m[$medico->id] = $medico->nome_medico;
+        }
+
+        $arr_p = [];
+        foreach (Paciente::all() as $paciente) {
+            $arr_p[$paciente->id] = $paciente->nome;
+        }
+        return view('agendas.create')->with('medicos', $arr_m)->with('pacientes', $arr_p);
     }
 
     /**
@@ -77,7 +89,17 @@ class AgendaController extends AppBaseController
             return redirect(route('agendas.index'));
         }
 
-        return view('agendas.show')->with('agenda', $agenda);
+        $arr_m = [];
+        foreach (Medico::all() as $medico) {
+            $arr_m[$medico->id] = $medico->nome_medico;
+        }
+
+        $arr_p = [];
+        foreach (Paciente::all() as $paciente) {
+            $arr_p[$paciente->id] = $paciente->nome;
+        }
+
+        return view('agendas.show')->with('agenda', $agenda)->with('medicos', $arr_m)->with('pacientes', $arr_p);
     }
 
     /**
@@ -97,7 +119,17 @@ class AgendaController extends AppBaseController
             return redirect(route('agendas.index'));
         }
 
-        return view('agendas.edit')->with('agenda', $agenda);
+        $arr_m = [];
+        foreach (Medico::all() as $medico) {
+            $arr_m[$medico->id] = $medico->nome_medico;
+        }
+
+        $arr_p = [];
+        foreach (Paciente::all() as $paciente) {
+            $arr_p[$paciente->id] = $paciente->nome;
+        }
+
+        return view('agendas.edit')->with('agenda', $agenda)->with('medicos', $arr_m)->with('pacientes', $arr_p);
     }
 
     /**

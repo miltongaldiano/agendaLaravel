@@ -11,6 +11,8 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 
+use App\Models\Estado;
+
 class CidadeController extends AppBaseController
 {
     /** @var  CidadeRepository */
@@ -39,7 +41,11 @@ class CidadeController extends AppBaseController
      */
     public function create()
     {
-        return view('cidades.create');
+        $arr_e = [];
+        foreach (Estado::all() as $estado) {
+            $arr_e[$estado->id] = $estado->sigla;
+        }
+        return view('cidades.create')->with('estados', $arr_e);
     }
 
     /**
@@ -97,7 +103,12 @@ class CidadeController extends AppBaseController
             return redirect(route('cidades.index'));
         }
 
-        return view('cidades.edit')->with('cidade', $cidade);
+        $arr_e = [];
+        foreach (Estado::all() as $estado) {
+            $arr_e[$estado->id] = $estado->sigla;
+        }
+
+        return view('cidades.edit')->with('cidade', $cidade)->with('estados', $arr_e);
     }
 
     /**

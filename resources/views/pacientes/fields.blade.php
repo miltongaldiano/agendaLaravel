@@ -10,6 +10,12 @@
     {!! Form::text('cpf', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Cep Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('cep', 'Cep:') !!}
+    {!! Form::text('cep', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Endereco Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('endereco', 'Endereco:') !!}
@@ -30,14 +36,14 @@
 
 <!-- Cidade Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('cidade_id', 'Cidade Id:') !!}
-    {!! Form::number('cidade_id', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Cep Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('cep', 'Cep:') !!}
-    {!! Form::text('cep', null, ['class' => 'form-control']) !!}
+    {!! Form::label('cidade_id', 'Cidade:') !!}
+    <!-- {!! Form::select('cidade_id', $cidades, ['class' => 'form-control', 'id'=>'cidade']) !!} -->
+    <select name="cidade_id" id="cidade">
+        <option value=""></option>
+        @foreach($cidades as $cidade)
+        <option value="{!!$cidade->id!!}" data-value="{!!$cidade->ibge!!}" {{(isset($paciente) && $paciente->cidade_id == $cidade->id ? 'selected':'')}}>{!!$cidade->nome!!}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Submit Field -->
