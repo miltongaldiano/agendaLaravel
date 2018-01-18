@@ -776,9 +776,8 @@ const app = new Vue({
     el: '#app'
 });*/
 
-function buscaCep(cep) {
-
-  var cep_code = cep;
+$("#cep").on('change', function () {
+  var cep_code = $(this).val();
   $.ajax({
     url: "https://viacep.com.br/ws/" + cep_code + "/json"
   }).done(function (result) {
@@ -787,13 +786,7 @@ function buscaCep(cep) {
     $('#numero').val(result.numero);
     $('#bairro').val(result.bairro);
   });
-}
-
-$("#cep").on('change', function () {
-  buscaCep($(this).val());
 });
-
-buscaCep("#cep".val());
 
 /*$("#cep").on('change', function(){
   var cep_code = $(this).val();

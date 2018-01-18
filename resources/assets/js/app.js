@@ -20,7 +20,8 @@ require('./bootstrap');
 const app = new Vue({
     el: '#app'
 });*/
-$("#cep").on('change', function(){
+
+$("#cep").change(function(){
 	var cep_code = $(this).val();
 	$.ajax({
 	  url: "https://viacep.com.br/ws/"+cep_code+"/json",
