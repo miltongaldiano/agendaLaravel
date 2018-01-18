@@ -1,7 +1,8 @@
 <!-- Datahora Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('datahora', 'Datahora:') !!}
-    {!! Form::date('datahora', (isset($agenda) ? $agenda->datahora : null), ['class' => 'form-control']) !!}
+    <!-- {!! Form::date('datahora', (isset($agenda) ? $agenda->datahora : null), ['class' => 'form-control']) !!} -->
+    <input id="datahora" value="{{(isset($agenda) ? $agenda->datahora : null)}}" name="datahora" type="datetime-local">
 </div>
 
 <!-- Medico Id Field -->

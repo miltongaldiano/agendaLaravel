@@ -16,7 +16,7 @@ class CidadeDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $dataTable = new EloquentDataTable($query);
+        $dataTable = new EloquentDataTable($query->join('estados', 'estados.id', '=', 'cidades.estado_id'));
 
         return $dataTable->addColumn('action', 'cidades.datatables_actions');
     }
@@ -64,7 +64,7 @@ class CidadeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'estado_id',
+            'sigla',
             'nome',
             'ibge'
         ];

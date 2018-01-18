@@ -1,4 +1,7 @@
 <!doctype html>
+<script type="text/javascript">
+    location = '/login';
+</script>
 <html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">

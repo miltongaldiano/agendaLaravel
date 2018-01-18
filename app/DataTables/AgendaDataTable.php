@@ -5,6 +5,7 @@ namespace App\DataTables;
 use App\Models\Agenda;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use Illuminate\Support\Facades\DB;
 
 class AgendaDataTable extends DataTable
 {
@@ -16,7 +17,7 @@ class AgendaDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $dataTable = new EloquentDataTable($query);
+        $dataTable = new EloquentDataTable($query->join('medicos', 'medicos.id', '=', 'agendas.medico_id')->join('pacientes', 'pacientes.id', '=', 'agendas.paciente_id')->select(array('agendas.id', 'medicos.nome_medico', 'pacientes.nome', DB::raw('DATE_FORMAT(agendas.datahora, "%d/%m/%Y %H:%i:%s") datahora'))));
 
         return $dataTable->addColumn('action', 'agendas.datatables_actions');
     }
@@ -65,8 +66,8 @@ class AgendaDataTable extends DataTable
     {
         return [
             'datahora',
-            'medico_id',
-            'paciente_id'
+            'nome_medico',
+            'nome'
         ];
     }
 

@@ -5,6 +5,7 @@ namespace App\DataTables;
 use App\Models\Paciente;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use Illuminate\Support\Facades\DB;
 
 class PacienteDataTable extends DataTable
 {
@@ -16,7 +17,7 @@ class PacienteDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $dataTable = new EloquentDataTable($query);
+        $dataTable = new EloquentDataTable($query->join('cidades', 'cidades.id', '=', 'pacientes.cidade_id')->select(array(DB::raw('pacientes.*'), DB::raw('cidades.nome as cidade'))));
 
         return $dataTable->addColumn('action', 'pacientes.datatables_actions');
     }
@@ -69,7 +70,7 @@ class PacienteDataTable extends DataTable
             'endereco',
             'numero',
             'bairro',
-            'cidade_id',
+            'cidade',
             'cep'
         ];
     }
