@@ -38,6 +38,7 @@ class AgendasAPIController extends AppBaseController
     {
         $this->agendasRepository->pushCriteria(new RequestCriteria($request));
         $this->agendasRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->agendasRepository->with(['medico']);
         $agendas = $this->agendasRepository->all();
 
         return $this->sendResponse($agendas->toArray(), 'Agendas retrieved successfully');
