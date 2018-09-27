@@ -36,10 +36,19 @@ class AgendasAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $this->agendasRepository->pushCriteria(new RequestCriteria($request));
-        $this->agendasRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $this->agendasRepository->with(['medico']);
-        $agendas = $this->agendasRepository->all();
+        $input = $request->all();
+
+        //$this->agendasRepository->pushCriteria(new RequestCriteria($request));
+        //$this->agendasRepository->pushCriteria(new LimitOffsetCriteria($request));
+
+        $agendas = new Agendas;
+        $agendas = $agendas->with(['medico', 'paciente']);
+        if($input['medico_id'] != 'undefined') {
+            $agendas = $agendas->where('medico_id', $input['medico_id']);
+        }
+
+        //$agendas = $agendas->withTrashed();
+        $agendas = $agendas->get();        
 
         return $this->sendResponse($agendas->toArray(), 'Agendas retrieved successfully');
     }
